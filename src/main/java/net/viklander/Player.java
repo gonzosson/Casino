@@ -1,11 +1,22 @@
 package net.viklander;
 
-public class Player {
-    String namn;
-    double saldo;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 
-    public Player(String namn, double saldo) {
-        this.namn = namn;
-        this.saldo = saldo;
+public class Player {
+    String name;
+    BigDecimal balance;
+
+    public Player(String name, BigDecimal balance) {
+        this.name = name;
+        this.balance = balance.setScale(2, RoundingMode.HALF_UP);
+    }
+
+    public BigDecimal getBalance() {
+        return balance;
+    }
+
+    public void setBalance(BigDecimal balance) {
+        this.balance = balance;
     }
 }
