@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) throws java.io.IOException {
+    public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Welcome to Casino Cosmos!");
@@ -31,7 +31,7 @@ public class Main {
             String choice = scanner.nextLine();
 
             if(player.getBalance().compareTo(BigDecimal.ZERO) <= 0) {
-                System.out.println("You are bankrupt, get out of here!");
+                System.out.println(player.name + ", you are bankrupt and a looser, get out of here!");
                 break;
             }
 
@@ -39,21 +39,50 @@ public class Main {
                 case "1":
                     System.out.println("Playing Wheel of fortune!");
                     System.out.println("How much do you want to bet? (max: " + player.getBalance() + ")");
-                    BigDecimal bet = getValidBigDecimal(player, scanner.nextLine());
-                    scanner.nextLine();
+                    BigDecimal betWheel = getValidBigDecimal(player, scanner.nextLine());
 
-                    if(bet == null) {
+                    if(betWheel == null) {
                         System.out.println("Invalid amount!");
                         break;
                     }
 
-                    WheelOfFortune.spin(player, bet);
+                    WheelOfFortune.spin(player, betWheel);
                     break;
                 case "2":
                     System.out.println("Playing Roulette!");
+                    System.out.println("How much do you want to bet? (max: " + player.getBalance() + ")");
+                    BigDecimal betRoulette = getValidBigDecimal(player, scanner.nextLine());
+
+                    System.out.println();
+                    System.out.println("What do you want to bet on? (choose number):");
+                    System.out.println("(1) Red");
+                    System.out.println("(2) Black");
+                    System.out.println("(3) Even");
+                    System.out.println("(4) Odd");
+                    System.out.println("(5) Low");
+                    System.out.println("(6) High");
+
+                    String rouletteChoice = scanner.nextLine();
+
+                    Roulette roulette = new Roulette();
+                    int result = roulette.spin();
+
+                    switch(rouletteChoice) {
+                        case "1":
+                            if(roulette.isRed(result)) {
+                                System.out.println("YES! red it is");
+                            } else {
+                                System.out.println("woop woop, you loose");
+                            }
+                            break;
+                        default:
+                            System.out.println("Invalid choice!");
+                            break;
+                    }
+
                     break;
                 case "3":
-                    System.out.println(player.getBalance());
+                    System.out.println("Your balance is: " + player.getBalance());
                     break;
                 case "q":
                     break;

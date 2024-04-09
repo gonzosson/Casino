@@ -5,7 +5,7 @@ import java.math.RoundingMode;
 
 public class Player {
     String name;
-    BigDecimal balance;
+    private BigDecimal balance;
 
     public Player(String name, BigDecimal balance) {
         this.name = name;
